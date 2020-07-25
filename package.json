@@ -42,7 +42,8 @@
     "@tarojs/taro": "3.0.5",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "react-import": "^1.5.3"
+    "react-import": "^1.5.3",
+    "taro-ui": "^3.0.0-alpha.3"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.13.6",

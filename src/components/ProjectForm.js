@@ -14,14 +14,14 @@ export default function ProjectForm(props) {
             className="input-title"
             type="text"
             placeholder="点击输入标题"
-            value={props.formTitle}
+            value={props.projecttitle}
             onInput={props.handleTitleInput}
           />
-          <View className="form-hint">正文</View>
+          <View className="form-hint">简介</View>
           <Textarea
-            placeholder="点击输入正文"
+            placeholder="点击输入简介"
             className="input-content"
-            value={props.formContent}
+            value={props.projectcontent}
             onInput={props.handleContentInput}
           />
           <Button className="form-button" formType="submit" type="primary">

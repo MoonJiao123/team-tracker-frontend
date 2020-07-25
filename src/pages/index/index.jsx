@@ -1,58 +1,30 @@
 import React, { Component } from 'react'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import { ProjectForm, ProjectInfo } from '../../components'
+import { Logo, AddProjectButton, ProjectInfo,Searchbar } from '../../components'
 export default class Index extends Component {
-  state={
-    posts: [
-      {
-        title: '泰罗奥特曼',
-        content: '泰罗是奥特之父和奥特之母唯一的亲生儿子。',
-      },
-    ],
-    projecttitle:'',
-    projectcontent:''
-  }
+  //get call to get all current projects
+  getcurrentprojects(){}
   config = {
     navigationBarTitleText: '首页',
   }
-  handleSubmit(e) {
-    e.preventDefault()
-
-    const { projecttitle: title, projectcontent: content } = this.state
-    const newProject = this.state.posts.concat({ title, content })
-
-    this.setState({
-      posts: newProject,
-      projecttitle: '',
-      projectcontent: '',
-    })
-  }
-  handleTitleInput(e) {
-    this.setState({
-      formTitle: e.target.value,
-    })
-  }
-
-  handleContentInput(e) {
-    this.setState({
-      formContent: e.target.value,
-    })
-  }
-  render () {
+  render() {
+    let samepleproject1 = { 'projecttitle': 'pikachu', 'projectcontent': 'sameple contenthhhhhhhhhhhhhhh sdfsfssdafadfaadfasdfa' };
+    let samepleproject2 = { 'projecttitle': 'animalcrosiing', 'projectcontent': 'askdfsakdhfklasdhfsahfkds skahdflksdhf fksdhfks' };
+    let currentProject = [];
+    currentProject.push(samepleproject1);
+    currentProject.push(samepleproject2);
+    console.log(currentProject)
+    //render a list of projects
+    const listProjects = currentProject.map((d) => <View className="projectlist"><ProjectInfo projecttitle={d.projecttitle} projectcontent={d.projectcontent}/></View>);
     return (
       <View className="index">
-        {this.state.posts.map((post, index) => (
-          <ProjectInfo key={index} title={post.title} content={post.content} />
-        ))}
-        <ProjectForm
-          projecttitle={this.state.projecttitle}
-          projectcontent={this.state.projectcontent}
-          handleSubmit={e => this.handleSubmit(e)}
-          handleTitleInput={e => this.handleTitleInput(e)}
-          handleContentInput={e => this.handleContentInput(e)}
-        />
+        <Logo />
+        <AddProjectButton />
+        <Searchbar/>
+        {listProjects}
       </View>
+
     )
   }
 }
