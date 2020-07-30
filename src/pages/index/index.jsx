@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import { Logo, AddProjectButton, ProjectInfo,Searchbar } from '../../components'
+import taro from '@tarojs/taro'
+import { AddProjectButton, ProjectInfo } from '../../components'
+import Logo from '../../components/Logo'
+import Searchbar from '../../components/Searchbar'
+
 export default class Index extends Component {
+ 
   //get call to get all current projects
-  getcurrentprojects(){}
+  getcurrentprojects() { }
   config = {
     navigationBarTitleText: '首页',
   }
@@ -16,13 +21,20 @@ export default class Index extends Component {
     currentProject.push(samepleproject2);
     console.log(currentProject)
     //render a list of projects
-    const listProjects = currentProject.map((d) => <View className="projectlist"><ProjectInfo projecttitle={d.projecttitle} projectcontent={d.projectcontent}/></View>);
+    const listProjects = currentProject.map((d) => <View className="projectlist" key={d.projecttitle}><ProjectInfo projecttitle={d.projecttitle} projectcontent={d.projectcontent} /></View>);
     return (
       <View className="index">
-        <Logo />
+
+        <View className="inline-block">
+          <Logo />
+          
+        </View>
         <AddProjectButton />
-        <Searchbar/>
-        {listProjects}
+        <Searchbar />
+
+        <View className='currentproject'>
+          {listProjects}
+        </View>
       </View>
 
     )

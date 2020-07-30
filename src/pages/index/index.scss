@@ -1,24 +1,54 @@
+/****************************** home page ***********************************/
+// .logo{
+//     padding: 30px;
+// }
+// .searchbar{
+//     padding-left: 150px;
+//     padding-bottom: 20px;
+//     padding-right:30px;
+
+// }
+// .plusimage{
+//     padding-left: 70px;
+//     padding-bottom: 20px;
+// }
+.inline-block{
+    display: flex;
+}
+.addprojectform{
+    position: absolute;
+    float: left;
+    
+}
 .project-info {
+    border: 1px solid #eee;
     margin: 30px;
     padding: 20px;
-    border: 1px solid #ddd;
-  }
+}
   
-  .project-title {
+    .project-title {
+
     font-weight: bolder;
     margin-bottom: 10px;
   }
   
   .project-content {
+    border: 1px solid #eee;
+
     font-size: medium;
     color: #666;
   }
   .project-form {
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
+    float:left;
     margin: 30px;
     padding: 30px;
+    padding-bottom: 60px;
   }
-  
+  .currentproject{
+    display: inline-block;
+
+  }
   .input-title {
     border: 1px solid #eee;
     padding: 10px;

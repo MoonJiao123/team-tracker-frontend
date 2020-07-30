@@ -1,9 +1,12 @@
+/**
+ * 在首页点击加号创建一个项目（projectform），还有form的输入
+ * 作者：Moon
+ */
 import Taro from '@tarojs/taro'
 import { View, Button, Image } from '@tarojs/components'
 import React, { Component } from 'react'
 import plus from './images/plus.png'
 import ProjectForm from './ProjectForm'
-import ProjectInfo from './ProjectInfo'
 class AddProjectButton extends Component {
     constructor() {
         super();
@@ -17,7 +20,6 @@ class AddProjectButton extends Component {
     }
 
     handleClick(e) {
-        console.log("clicked");
         this.setState({
             clicked: 1
         });
@@ -42,23 +44,23 @@ class AddProjectButton extends Component {
             projectcontent: e.target.value,
         })
     }
-    reset() {
-        this.setState({
-            clicked: 0
-        });
-    }
+  
     render() {
         return (
+            <View className='addproject'>
+                <View className="plusimage"><Image src={plus} onClick={this.handleClick} style='width: 50px;height: 50px;'
+                /></View>
 
-            <View className="addprojectbutton" >
-                <Image src={plus} onClick={this.handleClick} />
-                {this.state.clicked ? <ProjectForm
-                    projecttitle={this.state.projecttitle}
-                    projectcontent={this.state.projectcontent}
-                    handleSubmit={e => this.handleSubmit(e)}
-                    handleTitleInput={e => this.handleTitleInput(e)}
-                    handleContentInput={e => this.handleContentInput(e)}
-                /> : null}
+                <View className="addprojectformdiv">
+                    {this.state.clicked ? <ProjectForm
+                        className="addprojectform"
+                        projecttitle={this.state.projecttitle}
+                        projectcontent={this.state.projectcontent}
+                        handleSubmit={e => this.handleSubmit(e)}
+                        handleTitleInput={e => this.handleTitleInput(e)}
+                        handleContentInput={e => this.handleContentInput(e)}
+                    /> : null}
+                </View>
             </View>
 
         )
