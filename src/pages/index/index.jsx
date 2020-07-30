@@ -5,7 +5,7 @@ import taro from '@tarojs/taro'
 import { AddProjectButton, ProjectInfo } from '../../components'
 import Logo from '../../components/Logo'
 import Searchbar from '../../components/Searchbar'
-
+import Login from '../../components/userinfo'
 export default class Index extends Component {
  
   //get call to get all current projects
@@ -24,7 +24,7 @@ export default class Index extends Component {
     const listProjects = currentProject.map((d) => <View className="projectlist" key={d.projecttitle}><ProjectInfo projecttitle={d.projecttitle} projectcontent={d.projectcontent} /></View>);
     return (
       <View className="index">
-
+        <Login/>
         <View className="inline-block">
           <Logo />
           
