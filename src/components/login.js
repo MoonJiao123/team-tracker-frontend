@@ -13,7 +13,6 @@ export default class Login extends Component {
     // 获取用户当前授权状态
     this.getOauthStatus()
   }
-
   componentDidMount() {}
 
   componentWillUnmount() {}
@@ -73,8 +72,8 @@ export default class Login extends Component {
     return (
       <View className='login-page'>
         { oauthBtnStatus ? <Button className='login-btn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}>{btnText}</Button> : ''}
-        { userInfo ? JSON.stringify(userInfo) : ''}
-        { userInfo ? <Image src={userInfo.avatarUrl} /> : ''}
+        {/* { userInfo ? JSON.stringify(userInfo) : ''}
+        { userInfo ? <Image src={userInfo.avatarUrl} /> : ''} */}
       </View>
     )
   }

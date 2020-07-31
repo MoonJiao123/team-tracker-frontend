@@ -1,7 +1,9 @@
 /****************************** home page ***********************************/
-// .logo{
-//     padding: 30px;
-// }
+.logo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 // .searchbar{
 //     padding-left: 150px;
 //     padding-bottom: 20px;
@@ -26,15 +28,16 @@
     padding: 20px;
 }
   
-    .project-title {
-
+  .project-title {
+    margin: 10px;
     font-weight: bolder;
     margin-bottom: 10px;
   }
   
   .project-content {
     border: 1px solid #eee;
-
+    margin: 10px;
+    padding: 20px;
     font-size: medium;
     color: #666;
   }
@@ -52,6 +55,7 @@
   .input-title {
     border: 1px solid #eee;
     padding: 10px;
+    margin: 30px;
     font-size: medium;
   }
   

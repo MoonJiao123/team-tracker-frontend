@@ -26,7 +26,23 @@ class AddProjectButton extends Component {
     }
     handleSubmit(e) {
         e.preventDefault()
+        
         //call backend ot add
+        // Taro.request({
+        //     url: 'https://stark-crag-91309.herokuapp.com/api/project', 
+        //     data: {
+        //       projecttitle: this.state.projecttitle,
+        //       projectcontent: this.state.projectcontent,
+        //       ownername: 'user1'
+        //     },
+        //     header: {
+        //       'content-type': 'application/json' // 默认值
+        //     },
+        //     success: function (res) {
+        //       console.log(res.data)
+        //     }
+        //   })
+
         this.setState({
             clicked: 0,
             projecttitle: '',

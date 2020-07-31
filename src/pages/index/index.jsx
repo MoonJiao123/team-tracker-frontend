@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import taro from '@tarojs/taro'
 import { AddProjectButton, ProjectInfo } from '../../components'
 import Logo from '../../components/Logo'
 import Searchbar from '../../components/Searchbar'
-import Login from '../../components/userinfo'
+import Login from '../../components/login'
+
 export default class Index extends Component {
  
   //get call to get all current projects

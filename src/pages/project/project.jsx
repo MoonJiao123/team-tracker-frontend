@@ -9,14 +9,14 @@ import "taro-ui/dist/style/components/search-bar.scss";
 import "taro-ui/dist/style/components/button.scss";
 import "taro-ui/dist/style/components/icon.scss";
 import "taro-ui/dist/style/components/list.scss";
-import "taro-ui/dist/style/components/icon.scss";
+import "taro-ui/dist/style/components/accordion.scss";
 
 export default class Project extends Component {
 
   Logo() {
     return (
       <View className="logo">
-        <Image src={logoimg} style='width: 70px;height: 70px;' />
+        <Image src={logoimg} style='width: 120px;height: 120px;' />
       </View>
     )
   }

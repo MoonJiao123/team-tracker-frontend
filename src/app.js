@@ -9,13 +9,16 @@ class App extends Component {
         if (res.code) {
           console.log('登陆成功')
           console.log(res.code)
-          //发起网络请求
-          // Taro.request({
-          //   url: 'https://test.com/onLogin',
-          //   data: {
-          //     code: res.code
-          //   }
-          // })
+          Taro.request({
+            url: 'https://boysenberry-23sgjxsm.pai.tcloudbase.com:8081/api/project/own/'+res.code,
+            method: 'GET',
+            success:function(res){
+              console.log(res)
+            }
+            // data: {
+            //   code: res.code
+            // }
+          })
         } else {
           console.log('登录失败！' + res.errMsg)
         }

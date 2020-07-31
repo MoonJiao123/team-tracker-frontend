@@ -1,0 +1,30 @@
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:30%
+  }
+
+.plusimage{
+  display: inline;
+}
+.tasktext{
+  float: right;
+  margin: 30px;
+  padding: 10px;
+}
+.task{
+  border: 1px solid #eee;
+  margin: 30px;
+  padding: 20px;
+}
+.tasklistcontainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-gap: 10px;
+  width: 100%;
+}
+.tasklistitem{
+  border: 1px solid #eee;
+}
