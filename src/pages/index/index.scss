@@ -1,68 +1,128 @@
 /****************************** home page ***********************************/
-.logo{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-// .searchbar{
-//     padding-left: 150px;
-//     padding-bottom: 20px;
-//     padding-right:30px;
+/*
+color palalette
+CAE7B9 green
+F3DE8A yellow
+EB9486 red
+7E7F9A purple
+97A7B3 blue
+fff9dd lightyellow
+cfcfcf
+*/
+.index {
+  background-image: url("../../components/images/background.png");
+  background-repeat: repeat;
 
-// }
-// .plusimage{
-//     padding-left: 70px;
-//     padding-bottom: 20px;
-// }
+
+}
+
+.searchbar{
+   padding:20px;
+
+}
+
 .inline-block{
     display: flex;
 }
-.addprojectform{
-    position: absolute;
-    float: left;
-    
+
+.searchbar.at-search-bar{
+  background-color: #7E7F9A ;
 }
+
+
+/*
+  *
+  *
+  *************** project css 首页 ***********************
+  *
+  *
+*/
 .project-info {
-    border: 1px solid #eee;
-    margin: 30px;
-    padding: 20px;
+  background: #F3DE8A;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 12px;
 }
-  
+.project-minus-inline{
+  display: flex;
+  justify-content: space-between;
+}
+
   .project-title {
+    padding-top: 30px;
+    padding-left: 20px;
     margin: 10px;
+    color: #666;
     font-weight: bolder;
-    margin-bottom: 10px;
   }
   
   .project-content {
-    border: 1px solid #eee;
-    margin: 10px;
+    background: #fff9dd;
+    margin: 20px;
     padding: 20px;
     font-size: medium;
     color: #666;
+    border-radius: 12px;
   }
   .project-form {
-    border: 1px solid #eee;
-    float:left;
     margin: 30px;
     padding: 30px;
     padding-bottom: 60px;
   }
+  .info-button.at-button{
+    background-color: #EB9486 ;
+    color: #7E7F9A;
+    border-radius: 100px;
+    width: 80%;
+
+  } 
+  .button-hover-effect{
+    background-color: white;
+  }
   .currentproject{
     display: inline-block;
+  }
 
+
+/*
+  *
+  *
+  *************** add project form css 首页 ***********************
+  *
+  *
+*/
+.plusimage{
+  padding: 20px;
+  padding-bottom: 5px;
+  margin:20px;
+}
+
+  .project-form{
+    background: #F3DE8A;
+    border-radius: 12px;
+    float: left;
+  }
+
+  .form-title{
+    color: #666;
+    font-weight: bolder;
   }
   .input-title {
-    border: 1px solid #eee;
+    background-color: #fff9dd;
+    border-radius: 12px;
     padding: 10px;
     margin: 30px;
+    color: #666;
     font-size: medium;
   }
   
   .input-content {
-    border: 1px solid #eee;
-    padding: 10px;
+    background-color: #fff9dd;
+    border-radius: 12px;
+    padding: 20px;
+    margin:30px;
     height: 200px;
+    color: #666;
     font-size: medium;
   }
   
@@ -76,3 +136,27 @@
   .form-button {
     margin-top: 40px;
   }
+
+  /**
+  * navbar
+  */
+  .navbarWrap{
+    // display: flex;
+    // justify-content: space-between;
+    background-color: #7E7F9A;
+    display:flex;
+    align-content: flex-start;
+    flex-flow: row wrap;
+  }
+  .team-name{
+    margin: 15px;
+    margin-top:30px;
+    color: #ffffff;
+    //display: inline;
+  }
+  .navbar{
+    margin: 30px;
+    color: #ffffff;
+    //display: inline;
+  }
+  

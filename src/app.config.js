@@ -5,8 +5,10 @@ export default {
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
+    navigationBarBackgroundColor: '#7E7F9A',
     navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
+    navigationBarTextStyle: 'white',
+    navigationStyle: 'custom',
+    enablePullDownRefresh:true
   }
 }

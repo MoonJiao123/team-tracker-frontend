@@ -8,7 +8,7 @@ import logoimg from './images/logo.png'
 export default function Logo() {
     return (
         <View className="logo">
-            <Image src={logoimg} style='width: 120px;height: 120px;' />
+            <Image className="logo-img" src={logoimg} style='width: 90px;height: 50px;' />
         </View>
     )
 }

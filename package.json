@@ -45,6 +45,7 @@
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "react-import": "^1.5.3",
+    "taro-navigationbar": "^2.1.1",
     "taro-ui": "^3.0.0-alpha.3"
   },
   "devDependencies": {

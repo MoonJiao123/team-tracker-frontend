@@ -64,12 +64,11 @@ class AddProjectButton extends Component {
     render() {
         return (
             <View className='addproject'>
-                <View className="plusimage"><Image src={plus} onClick={this.handleClick} style='width: 50px;height: 50px;'
+                <View className="plusimage"><Image src={plus} onClick={this.handleClick} style='width: 30px;height: 30px;'
                 /></View>
 
                 <View className="addprojectformdiv">
                     {this.state.clicked ? <ProjectForm
-                        className="addprojectform"
                         projecttitle={this.state.projecttitle}
                         projectcontent={this.state.projectcontent}
                         handleSubmit={e => this.handleSubmit(e)}

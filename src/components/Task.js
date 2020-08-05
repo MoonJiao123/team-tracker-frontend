@@ -3,14 +3,18 @@
  * 3个todo, doing, done, 有一个 plus button和input list 
  * 作者:Moon
  */
-import { View, Image,Textarea,Input } from '@tarojs/components'
+import { View, Image, Textarea, Input } from '@tarojs/components'
 import React, { Component } from 'react'
 import AddTask from './AddTask'
-import plus from '../pages/project/images/plus.png'
+import plus from '../components/images/plus.png'
+
 export default class Task extends Component {
   constructor() {
     super();
     this.state = {
+      todos: [],
+      doings: [],
+      dones: [],
       clicked: 0,
       content: ''
     }
@@ -52,39 +56,63 @@ export default class Task extends Component {
   getTodo() { }
   getDoing() { }
   getDone() { }
-  renderlist(list) {
-    return list.map((item) => <View className='tasklistitem' key={item}><Input value={item} maxLength	='100'/> </View>)
+  handleTaskInput(e, mode) {
+    switch (mode) {
+      case 'todo':
+        this.setState({
+          todos: e
+        })
+        console.log(this.state.todos)
+        break;
+      case 'doing':
+        this.setState({
+          doings: e
+        })
+        break;
+      case 'done':
+        this.setState({
+          dones: e
+        })
+        break;
+    }
+  }
+  renderlist(list, mode) {
+    return list.map((item) => <View className='tasklistitem' key={item}><Input value={item} onChange={this.handleTaskInput.bind(this,mode)} maxLength='100' /> </View>)
   }
   render() {
-    var todos = ['没做', '啧啧啧', 'ksdjglksadjf', 'aksdjfaklsd','tesssssssdsfhasdjhfaskdjhfjkasdhfjkasdhfjkashfkjasdhfjkasdhfjdshfjshdjkfsdjfhkasjdhfkjasdhfjkasdhfjkds','dfd','asdfasdf']
-    var doings = ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd']
-    var dones = ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd']
+    var temptodos = ['没做', '啧啧啧', 'ksdjglksadjf', 'aksdjfaklsd', 'tesssssssdsfhasdjhfaskdjhfjkasdhfjkasdhfjkashfkjasdhfjkasdhfjdshfjshdjkfsdjfhkasjdhfkjasdhfjkasdhfjkds', 'dfd', 'asdfasdf']
+    var tempdoings = ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd']
+    var tempdones = ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd']
+    this.state.todos = temptodos;
+    this.state.doings = tempdoings;
+    this.state.dones = tempdones;
+
     return (
 
       < View className="alltask" >
 
-        <View className="task" >
-          <View className="plusimage"><Image src={plus} onClick={this.handleClickTodo} style='width: 50px;height: 50px;'
+        <View className="project-info" >
+          <View className="plusimage"><Image src={plus} onClick={this.handleClickTodo} style='width: 30px;height: 30px;'
           /></View>
-          <View className='tasktext'>Todo</View>
+          <View className='tasktext'>待完成</View>
           {this.state.clicked == 1 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(todos)}</View>
+          <View className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</View>
         </View>
 
-        <View className="task" >
-          <View className="plusimage"><Image src={plus} onClick={this.handleClickDoing} style='width: 50px;height: 50px;'
+        <View className="project-info" >
+          <View className="plusimage"><Image src={plus} onClick={this.handleClickDoing} style='width: 30px;height: 30px;'
           /></View>
-          <View className='tasktext'>Doing</View>
+          <View className='tasktext'>进行中</View>
           {this.state.clicked == 2 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(doings)}</View>
+          <View className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</View>
         </View>
 
-        <View className="task" >
-          <View className="plusimage"><Image src={plus} onClick={this.handleClickDone} style='width: 50px;height: 50px;'
+        <View className="project-info" >
+          <View className="plusimage"><Image src={plus} onClick={this.handleClickDone} style='width: 30px;height: 30px;'
           /></View>
-          <View className='tasktext'>Done</View>
+          <View className='tasktext'>已完成</View>
           {this.state.clicked == 3 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(dones)}</View>
+          <View className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</View>
         </View>
 
 

@@ -4,7 +4,6 @@
  */
 import { View, Image } from '@tarojs/components'
 import React, { Component } from 'react'
-import members from './images/members.png'
 import { AtAccordion, AtList, AtListItem } from 'taro-ui'
 export default class CurrentMembers extends Component {
     constructor() {
@@ -33,8 +32,8 @@ export default class CurrentMembers extends Component {
 
     render() {
         return (
-            <View className="currentmembers">
-                <AtAccordion open={this.state.open} onClick={this.handleClick.bind(this)}
+            <View >
+                <AtAccordion className="currentmembers" open={this.state.open} onClick={this.handleClick.bind(this)}
                     title='队友' icon={{ value: 'user', size: '15' }}>
                     {this.state.open?<AtList >
                         {this.getallMembers()}

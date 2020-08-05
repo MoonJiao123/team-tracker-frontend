@@ -1,9 +1,10 @@
 import { View, Button, Form,Input} from '@tarojs/components'
 import React, { Component } from 'react'
+import { AtButton } from 'taro-ui'
 export default function AddTask(props) { 
     return (
-        <View className="task-form">
-          <View>添加新的任务</View>
+        <View className='task-form'>
+          <View className='form-title'>添加新的任务</View>
           <Form onSubmit={props.handleSubmit}>
             <View>
               <Input
@@ -13,9 +14,9 @@ export default function AddTask(props) {
                 value={props.taskValue}
                 onChange={props.handleContentInput}
               />
-              <Button className="form-button" formType="submit" type="primary">
+              <AtButton className="info-button" hover-class='button-hover-effect' onClick= {props.handleSubmit} >
                 提交
-              </Button>
+              </AtButton>
             </View>
           </Form>
         </View>

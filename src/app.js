@@ -1,18 +1,18 @@
 import { Component } from 'react'
-import './app.scss'
+//import './app.scss'
+import './custom-variables.scss'
 import Taro from '@tarojs/taro'
-
 class App extends Component {
-  componentWillMount(){
+  componentWillMount() {
     Taro.login({
       success: function (res) {
         if (res.code) {
           console.log('登陆成功')
           console.log(res.code)
           Taro.request({
-            url: 'https://boysenberry-23sgjxsm.pai.tcloudbase.com:8081/api/project/own/'+res.code,
+            url: 'https://boysenberry-23sgjxsm.pai.tcloudbase.com:8081/api/project/own/' + res.code,
             method: 'GET',
-            success:function(res){
+            success: function (res) {
               console.log(res)
             }
             // data: {
@@ -25,16 +25,23 @@ class App extends Component {
       }
     })
   }
-  componentDidMount () {}
+  componentDidMount() { }
 
-  componentDidShow () {}
+  componentDidShow() { }
 
-  componentDidHide () {}
+  componentDidHide() { }
 
-  componentDidCatchError () {}
+  componentDidCatchError() { }
 
   // this.props.children 是将要会渲染的页面
-  render () {
+  render() {
+    // app.js
+
+    Taro.getSystemInfo({})
+      .then(res => {
+        Taro.$navBarMarginTop = res.statusBarHeight || 0
+      })
+    // 将状态栏高度挂载全局
     return this.props.children
   }
 }
