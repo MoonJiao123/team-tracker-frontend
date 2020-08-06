@@ -1,0 +1,58 @@
+// .logo{
+//     display: block;
+//     margin-left: auto;
+//     margin-right: auto;
+//     width:30%
+//   }
+/*
+color palalette
+CAE7B9 green
+F3DE8A yellow
+EB9486 red
+7E7F9A purple
+97A7B3 blue
+fff9dd lightyellow
+
+*/
+.plusimage{
+  display: inline;
+}
+/**
+members accordian
+*/
+.currentmembers.at-accordion{
+  background-color: #97A7B3 ;
+  width:30%;
+  margin:30px;
+  border-radius: 12px;
+  color:#7E7F9A
+}
+/*
+* **************task***********
+*/
+.task-form{
+  margin: 20px;
+  padding: 30px;
+}
+.tasktext{
+  float: right;
+  margin: 20px;
+  color: #666;
+  font-weight: bolder;
+}
+
+.tasklistcontainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-gap: 10px;
+  width: 100%;
+}
+.tasklistitem{
+  background: #fff9dd;
+  margin: 10px;
+  padding: 10px;
+  font-size: medium;
+  color: #666;
+  border-radius: 12px;
+}
