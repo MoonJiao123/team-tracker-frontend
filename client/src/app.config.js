@@ -6,7 +6,7 @@ export default {
     navigationBarTitleText: "WeChat",
     navigationBarTextStyle: "white",
     navigationStyle: "custom",
-    enablePullDownRefresh: true
+    // enablePullDownRefresh: true
   },
   cloud: true
 };

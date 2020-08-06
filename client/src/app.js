@@ -13,7 +13,7 @@ class App extends Component {
           // console.log(res.code);
           if (wx.cloud) {
             wx.cloud.init({
-              env: "team-tech-4sg8t",
+              env: "cloud-env-ciizt",
               traceUser: true
             });
           }

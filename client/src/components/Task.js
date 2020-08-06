@@ -3,17 +3,18 @@
  * 3个todo, doing, done, 有一个 plus button和input list 
  * 作者:Moon
  */
-import { View, Image, Textarea, Input } from '@tarojs/components'
+import { View, Image, Textarea, Input, MovableView, MovableAMovableArea } from '@tarojs/components'
 import React, { Component } from 'react'
 import AddTask from './AddTask'
 import plus from '../components/images/plus.png'
-
+import Board from './Board'
+import Taskitem from './Taskitem'
 export default class Task extends Component {
   constructor() {
     super();
     this.state = {
       todos: ['没做', '啧啧啧', 'ksdjglksadjf', 'aksdjfaklsd', 'tesssssssdsfhasdjhfaskdjhfjkasdhfjkasdhfjkashfkjasdhfjkasdhfjdshfjshdjkfsdjfhkasjdhfkjasdhfjkasdhfjkds', 'dfd', 'asdfasdf'],
-      doings: [['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd']],
+      doings: ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd'],
       dones: ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd'],
       clicked: 0,
       content: ''
@@ -59,14 +60,11 @@ export default class Task extends Component {
   handleTaskInput(mode, e,key) {
     switch (mode) {
       case 'todo':
-        var temptodo = [this.state.todos];
-        temptodo[this.state.todos.indexOf(key)] = e.target.value;
-        console.log(temptodo)
-
+        var temptodo = this.state.todos.slice();
+        temptodo[temptodo.indexOf(key)] = e.target.value;
         this.setState({
           todos: temptodo
         })
-        //console.log(this.state.todos)
         break;
       case 'doing':
         var tempdoing = this.state.doings.slice();
@@ -85,8 +83,8 @@ export default class Task extends Component {
     }
   }
   renderlist(list, mode) {
-    var list = list.map((item) => <View className='tasklistitem' key={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </View>)
-    console.log(this.state.todos)
+    var list = list.map((item) => <Taskitem className='tasklistitem' draggable='True' key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </Taskitem>)
+    console.log(list)
     return list
   }
   render() {
@@ -105,7 +103,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>待完成</View>
           {this.state.clicked == 1 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</View>
+          <Board id='todo'className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</Board>
         </View>
 
         <View className="project-info" >
@@ -113,7 +111,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>进行中</View>
           {this.state.clicked == 2 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</View>
+          <Board id='doing'className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</Board>
         </View>
 
         <View className="project-info" >
@@ -121,7 +119,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>已完成</View>
           {this.state.clicked == 3 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</View>
+          <Board id='done'className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</Board>
         </View>
 
 

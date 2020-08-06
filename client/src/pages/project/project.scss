@@ -1,9 +1,4 @@
-// .logo{
-//     display: block;
-//     margin-left: auto;
-//     margin-right: auto;
-//     width:30%
-//   }
+
 /*
 color palalette
 CAE7B9 green
@@ -12,8 +7,8 @@ EB9486 red
 7E7F9A purple
 97A7B3 blue
 fff9dd lightyellow
-
 */
+
 .plusimage{
   display: inline;
 }
@@ -54,5 +49,6 @@ members accordian
   padding: 10px;
   font-size: medium;
   color: #666;
+  cursor: pointer;
   border-radius: 12px;
 }
