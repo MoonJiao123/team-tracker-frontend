@@ -3,7 +3,7 @@
  * 3个todo, doing, done, 有一个 plus button和input list 
  * 作者:Moon
  */
-import { View, Image, Textarea, Input, MovableView, MovableAMovableArea } from '@tarojs/components'
+import { View, Image, Textarea, Input, MovableView, MovableArea } from '@tarojs/components'
 import React, { Component } from 'react'
 import AddTask from './AddTask'
 import plus from '../components/images/plus.png'
@@ -83,7 +83,7 @@ export default class Task extends Component {
     }
   }
   renderlist(list, mode) {
-    var list = list.map((item) => <Taskitem className='tasklistitem' draggable='True' key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </Taskitem>)
+    var list = list.map((item) => <View style='background:blue; width: 30px; height:30px;'direction = 'all'className='tasklistitem'  key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </View>)
     console.log(list)
     return list
   }
@@ -103,7 +103,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>待完成</View>
           {this.state.clicked == 1 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <Board id='todo'className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</Board>
+          <MovableArea style='background:red; width: 300px; height:100px;'id='todo'className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</MovableArea>
         </View>
 
         <View className="project-info" >
@@ -111,7 +111,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>进行中</View>
           {this.state.clicked == 2 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <Board id='doing'className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</Board>
+          <MovableArea style='background:red; width: 300px; height:100px;' id='doing'className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</MovableArea>
         </View>
 
         <View className="project-info" >
@@ -119,7 +119,7 @@ export default class Task extends Component {
           /></View>
           <View className='tasktext'>已完成</View>
           {this.state.clicked == 3 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <Board id='done'className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</Board>
+          <View id='done'className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</View>
         </View>
 
 

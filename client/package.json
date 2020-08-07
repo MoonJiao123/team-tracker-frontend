@@ -32,18 +32,19 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
+    "@tarojs/async-await": "^2.2.10",
     "@tarojs/cli": "3.0.7",
     "@tarojs/components": "3.0.7",
+    "@tarojs/react": "3.0.7",
     "@tarojs/runtime": "3.0.7",
     "@tarojs/taro": "3.0.7",
     "lodash": "4.17.15",
-    "@tarojs/react": "3.0.7",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "@tarojs/async-await": "^2.2.10",
     "react-import": "^1.5.3",
     "taro-navigationbar": "^2.1.1",
-    "taro-ui": "^3.0.0-alpha.3"
+    "taro-ui": "^3.0.0-alpha.3",
+    "wx-server-sdk": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",

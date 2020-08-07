@@ -8,8 +8,8 @@ import React, { Component } from 'react'
 import plus from './images/plus.png'
 import ProjectForm from './ProjectForm'
 class AddProjectButton extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             clicked: 0,
             projecttitle: '',
@@ -26,22 +26,23 @@ class AddProjectButton extends Component {
     }
     handleSubmit(e) {
         e.preventDefault()
-        
+
         //call backend ot add
-        // Taro.request({
-        //     url: 'https://stark-crag-91309.herokuapp.com/api/project', 
-        //     data: {
-        //       projecttitle: this.state.projecttitle,
-        //       projectcontent: this.state.projectcontent,
-        //       ownername: 'user1'
-        //     },
-        //     header: {
-        //       'content-type': 'application/json' // 默认值
-        //     },
-        //     success: function (res) {
-        //       console.log(res.data)
-        //     }
-        //   })
+        wx.vrequest({
+            url:
+                "https://stark-crag-91309.herokuapp.com/api/project",
+            data: {
+                projecttitle: this.state.projecttitle,
+                projectcontent: this.state.projectcontent,
+                ownername: this.props.user
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: res => {
+                console.log("added a project " + res.data)
+            }
+        });
 
         this.setState({
             clicked: 0,
@@ -60,7 +61,7 @@ class AddProjectButton extends Component {
             projectcontent: e.target.value,
         })
     }
-  
+
     render() {
         return (
             <View className='addproject'>

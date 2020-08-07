@@ -5,39 +5,24 @@ import "./custom-variables.scss";
 import "./app.scss";
 
 class App extends Component {
+
   componentWillMount() {
-    Taro.login({
-      success: function(res) {
-        if (res.code) {
-          console.log("登陆成功");
-          // console.log(res.code);
-          if (wx.cloud) {
-            wx.cloud.init({
-              env: "cloud-env-ciizt",
-              traceUser: true
-            });
-          }
 
-          wx.vrequest({
-            url:
-              "http://boysenberry-23sgjxsm.pai.tcloudbase.com:8081/api/project/own/user1",
-            success: res => {
-              console.log("data=", res.data);
-            }
-          });
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
-      }
-    });
+    //云开发初始化
+    wx.cloud.init({
+      env: 'cloud-env-ciizt',
+      traceUser: true
+    })
+    
+    
   }
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentDidShow() {}
+  componentDidShow() { }
 
-  componentDidHide() {}
+  componentDidHide() { }
 
-  componentDidCatchError() {}
+  componentDidCatchError() { }
 
   // this.props.children 是将要会渲染的页面
   render() {
