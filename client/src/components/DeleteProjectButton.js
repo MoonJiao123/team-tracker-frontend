@@ -2,8 +2,8 @@ import { View, Button,Image } from '@tarojs/components'
 import React, { Component } from 'react'
 import minus from './images/minus.png'
 class DeleteProjectButton extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             clicked: 0,
         }
@@ -11,6 +11,7 @@ class DeleteProjectButton extends Component {
 
     }
     handleClick(e) {
+        this.props.handleDelete(e,this.props.title,this.props.openid)
         this.setState({
             clicked: 1
         });
@@ -18,7 +19,7 @@ class DeleteProjectButton extends Component {
     }
     render(){
         return (
-            <View className="minus-image"><Image src={minus}  onClick = {this.handleClick} style='width: 90px;height: 50px;'/></View>
+            <View className="minus-image"><Image src={minus}  onClick = {(e) => this.props.handleDelete(e, this.props.title, this.props.openid)} style='width: 90px;height: 50px;'/></View>
           
         )
     }

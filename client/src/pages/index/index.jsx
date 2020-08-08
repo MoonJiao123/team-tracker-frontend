@@ -5,41 +5,151 @@ import { AddProjectButton, ProjectInfo } from '../../components'
 import Searchbar from '../../components/Searchbar'
 import Login from '../../components/login'
 import NavBar from '../../components/Navbar'
-import Taro, { connectSocket } from "@tarojs/taro";
+import Taro, { connectSocket, removeSavedFile } from "@tarojs/taro";
 
 export default class Index extends Component {
   constructor() {
     super();
     this.state = {
       user: '',
+      currentproject: []
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.getCurrent = this.getCurrent.bind(this)
+    this.handleDelete=this.handleDelete(this)
+    this.resetelement = React.createRef();
+    this.clearelement = React.createRef();
+
+
   }
+
+
+  //get user;s openid and save to be
   componentWillMount() {
     //let getter = this;
     wx.cloud.callFunction({
       name: 'getOpenid',
       complete: res => {
-        console.log('云函数获取到的openid: ', res.result.openId)
         var openid = res.result.openId;
         this.setState({
           user: openid
+        });
+        //get inital current project
+        wx.vrequest({
+          url:
+            "https://stark-crag-91309.herokuapp.com/api/project/own/" + res.result.openId,
+          dataType: JSON,
+          success: res => {
+            this.setState({
+              currentproject: res.data,
+            })
+          }
         });
       }
     })
   }
 
-
-  //get call to get all current projects
-  getcurrentprojects(user) {
+  //onActionClick for search bar
+  handleClick(e, value, user) {
+    let data = {
+      projectName: value,
+      ownerName: user
+    }
     wx.vrequest({
       url:
-        "https://stark-crag-91309.herokuapp.com/api/project/own/" + user,
-
+        "https://stark-crag-91309.herokuapp.com/api/project/byProjectNameAndOwnerName",
+      data: JSON.stringify(data),
+      dataType: JSON,
       success: res => {
-        return res.data
+        console.log("data= " + res.data + " type " + typeof (res.data))
+        // let temp = []
+        // if (res.data != undefined && res.data.length != 0) {
+
+        //   temp = JSON.parse('['+res.data+']')
+        // }
+        this.setState({
+          currentproject: '[' + res.data + ']',
+        })
       }
     });
+  }
+  //clear the search bar will call get all projects of the user again
+  getCurrent(e) {
+    wx.vrequest({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/project/own/" + this.state.user,
+      dataType: JSON,
+      success: res => {
+        this.setState({
+          currentproject: res.data,
+        })
+        this.clearelement.current.handleClear();
+      }
+    });
+  }
+  //delete a project
+  handleDelete(e, title, user) {
+    let data = {
+      "projectName": title,
+      "ownerName": user
+    }
+    wx.vrequest({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/project/byProjectNameAndOwnerName",
 
+      dataType: JSON,
+      success: res => {
+        this.setState({
+          currentproject: res.data,
+        })
+
+      }
+    });
+  }
+  //submit function of addprojectbutton
+  handleSubmit(e, title, content) {
+    e.preventDefault()
+    //云开发初始化
+    wx.cloud.init({
+      env: 'cloud-env-ciizt',
+      traceUser: true
+    })
+
+    let tar = {
+      projectName: title,
+      projectDescription: content,
+      ownerName: this.state.user
+    }
+
+    //call backend ot add
+    wx.vrequest({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/project",
+      method: 'POST',
+
+      data: JSON.stringify(tar),
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
+      success: res => {
+        //refresh
+        wx.vrequest({
+          url:
+            "https://stark-crag-91309.herokuapp.com/api/project/own/" + this.state.user,
+          dataType: JSON,
+          success: res => {
+            this.setState({
+              currentproject: res.data,
+            })
+            //call ref to reset addprojectbutton state
+            this.resetelement.current.reset();
+
+          }
+        });
+      }
+    });
   }
 
   config = {
@@ -48,21 +158,30 @@ export default class Index extends Component {
       'navbar': '../../components/Navbar', // 书写第三方组件的相对路径
     }
   }
-  render() {
-    
-    let currentProject =this.getcurrentprojects(this.state.user);
-    let listprojects = currentProject&&currentProject.map((d) => <View className="projectlist" key={d.projecttitle}><ProjectInfo projecttitle={d.projecttitle} projectcontent={d.projectcontent} /></View>);
 
+  render() {
+
+    let currentProject = this.state.currentproject;
+
+    if (currentProject != undefined && currentProject.length != 0) {
+      currentProject = JSON.parse(currentProject)
+    }
+    let listprojects = [];
+    if (currentProject != undefined && currentProject.length != 0) {
+      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid = {this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} /></View>);
+    }
+    console.log("listprojects "+listprojects)
     return (
       <View className="index">
         <NavBar />
         <View className="inline-block">
         </View>
-        <Searchbar />
+        <Searchbar handleClick={this.handleClick} ref={this.clearelement} openid={this.state.user} getCurrent={this.getCurrent} />
         <Login />
-        <AddProjectButton openid={this.state.user} getcurrentprojects={this.getcurrentprojects}/>
+        <AddProjectButton openid={this.state.user} ref={this.resetelement} handleSubmit={this.handleSubmit} />
         <View className='currentproject'>
-          {listprojects != null ? { listprojects } : <View className='project-title'>No project listed, please add some projects ;-;</View>}
+          {listprojects}
+          {/* {listprojects != undefined ? { listprojects } : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
         </View>
       </View>
 

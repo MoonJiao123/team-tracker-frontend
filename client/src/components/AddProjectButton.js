@@ -18,38 +18,19 @@ class AddProjectButton extends Component {
         this.handleClick = this.handleClick.bind(this);
 
     }
-
+    reset() {
+        this.setState({
+            clicked: 0,
+            projecttitle: '',
+            projectcontent: ''
+        })
+    }
     handleClick(e) {
         this.setState({
             clicked: 1
         });
     }
-    handleSubmit(e) {
-        e.preventDefault()
 
-        //call backend ot add
-        wx.vrequest({
-            url:
-                "https://stark-crag-91309.herokuapp.com/api/project",
-            data: {
-                projecttitle: this.state.projecttitle,
-                projectcontent: this.state.projectcontent,
-                ownername: this.props.user
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: res => {
-                console.log("added a project " + res.data)
-            }
-        });
-
-        this.setState({
-            clicked: 0,
-            projecttitle: '',
-            projectcontent: '',
-        })
-    }
     handleTitleInput(e) {
         this.setState({
             projecttitle: e.target.value,
@@ -72,7 +53,7 @@ class AddProjectButton extends Component {
                     {this.state.clicked ? <ProjectForm
                         projecttitle={this.state.projecttitle}
                         projectcontent={this.state.projectcontent}
-                        handleSubmit={e => this.handleSubmit(e)}
+                        handleSubmit={e => this.props.handleSubmit(e, this.state.projecttitle, this.state.projectcontent)}
                         handleTitleInput={e => this.handleTitleInput(e)}
                         handleContentInput={e => this.handleContentInput(e)}
                     /> : null}
