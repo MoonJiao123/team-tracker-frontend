@@ -17,7 +17,7 @@ export default class Index extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.getCurrent = this.getCurrent.bind(this)
-    this.handleDelete=this.handleDelete(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.resetelement = React.createRef();
     this.clearelement = React.createRef();
 
@@ -35,8 +35,9 @@ export default class Index extends Component {
         this.setState({
           user: openid
         });
+
         //get inital current project
-        wx.vrequest({
+        wx.request({
           url:
             "https://stark-crag-91309.herokuapp.com/api/project/own/" + res.result.openId,
           dataType: JSON,
@@ -52,31 +53,30 @@ export default class Index extends Component {
 
   //onActionClick for search bar
   handleClick(e, value, user) {
-    let data = {
+    
+    let searchdata = {
       projectName: value,
       ownerName: user
     }
-    wx.vrequest({
+    wx.request({
       url:
         "https://stark-crag-91309.herokuapp.com/api/project/byProjectNameAndOwnerName",
-      data: JSON.stringify(data),
-      dataType: JSON,
+      data: JSON.stringify(searchdata),
+      method: "POST",
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
       success: res => {
-        console.log("data= " + res.data + " type " + typeof (res.data))
-        // let temp = []
-        // if (res.data != undefined && res.data.length != 0) {
-
-        //   temp = JSON.parse('['+res.data+']')
-        // }
         this.setState({
-          currentproject: '[' + res.data + ']',
+          currentproject: '[' + JSON.stringify(res.data) + ']',
         })
       }
     });
   }
   //clear the search bar will call get all projects of the user again
   getCurrent(e) {
-    wx.vrequest({
+    wx.request({
       url:
         "https://stark-crag-91309.herokuapp.com/api/project/own/" + this.state.user,
       dataType: JSON,
@@ -90,15 +90,18 @@ export default class Index extends Component {
   }
   //delete a project
   handleDelete(e, title, user) {
-    let data = {
+    let mydata = {
       "projectName": title,
       "ownerName": user
     }
-    wx.vrequest({
+
+    wx.request({
       url:
         "https://stark-crag-91309.herokuapp.com/api/project/byProjectNameAndOwnerName",
 
       dataType: JSON,
+      data: JSON.stringify(mydata),
+      method: 'DELETE',
       success: res => {
         this.setState({
           currentproject: res.data,
@@ -123,7 +126,7 @@ export default class Index extends Component {
     }
 
     //call backend ot add
-    wx.vrequest({
+    wx.request({
       url:
         "https://stark-crag-91309.herokuapp.com/api/project",
       method: 'POST',
@@ -162,15 +165,13 @@ export default class Index extends Component {
   render() {
 
     let currentProject = this.state.currentproject;
-
     if (currentProject != undefined && currentProject.length != 0) {
       currentProject = JSON.parse(currentProject)
     }
     let listprojects = [];
     if (currentProject != undefined && currentProject.length != 0) {
-      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid = {this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} /></View>);
+      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid={this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} /></View>);
     }
-    console.log("listprojects "+listprojects)
     return (
       <View className="index">
         <NavBar />
@@ -181,7 +182,7 @@ export default class Index extends Component {
         <AddProjectButton openid={this.state.user} ref={this.resetelement} handleSubmit={this.handleSubmit} />
         <View className='currentproject'>
           {listprojects}
-          {/* {listprojects != undefined ? { listprojects } : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
+          {/* {listprojects != null?  listprojects  : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
         </View>
       </View>
 

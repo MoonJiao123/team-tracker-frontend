@@ -19,7 +19,7 @@ class DeleteProjectButton extends Component {
     }
     render(){
         return (
-            <View className="minus-image"><Image src={minus}  onClick = {(e) => this.props.handleDelete(e, this.props.title, this.props.openid)} style='width: 90px;height: 50px;'/></View>
+            <View className="minus-image"><Image src={minus}  onClick = {(e) => this.props.infodelete(e, this.props.title, this.props.openid)} style='width: 90px;height: 50px;'/></View>
           
         )
     }

@@ -13,16 +13,23 @@ export default class Task extends Component {
   constructor() {
     super();
     this.state = {
-      todos: ['没做', '啧啧啧', 'ksdjglksadjf', 'aksdjfaklsd', 'tesssssssdsfhasdjhfaskdjhfjkasdhfjkasdhfjkashfkjasdhfjkasdhfjdshfjshdjkfsdjfhkasjdhfkjasdhfjkasdhfjkds', 'dfd', 'asdfasdf'],
+      todos: [],
       doings: ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd'],
       dones: ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd'],
       clicked: 0,
-      content: ''
     }
     this.handleClickTodo = this.handleClickTodo.bind(this);
     this.handleClickDoing = this.handleClickDoing.bind(this);
     this.handleClickDone = this.handleClickDone.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetnewtask = React.createRef();
   }
+  componentWillMount() {
+    this.getTodo(this.props.projectname, this.props.user)
+    this.getDoing(this.props.projectname, this.props.user)
+    this.getDone(this.props.projectname, this.props.user)
+  }
+
   handleClickTodo(e) {
     this.setState({
       clicked: 1
@@ -38,26 +45,129 @@ export default class Task extends Component {
       clicked: 3
     });
   }
-  handleSubmit(e) {
+  //button actionclick
+  handlesearch(){
+    
+  }
+  //button submit in AddTask component
+  handleSubmit(e, taskinfo,status) {
     e.preventDefault()
-    //call backend ot add
-    this.setState({
-      clicked: 0,
-      content: '',
-    })
-  }
-  handleContentInput(e) {
-    this.setState({
-      content: e.target.value,
-    })
-    console.log(this.state.content);
+    let mydata = {
+      taskName: taskinfo,
+      description: taskinfo,
+      status: status,
+      projectName: this.props.projectname,
+      ownerName: this.props.user
+    }
+    console.log("taskinfo "+taskinfo)
+    console.log("mydata = "+JSON.stringify(mydata))
+    //call backend ot add a task
+    wx.request({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/task",
+      method: 'POST',
 
+      data: JSON.stringify(mydata),
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
+      success: res => {
+        console.log('res data= ' + JSON.stringify(res)+ "res "+res.data)
+        //update all the tasks
+        switch(status) {
+          case 'Todo':
+            this.getTodo(this.props.projectname, this.props.user)
+            break;
+          case 'Doing':
+            this.getDoing(this.props.projectname, this.props.user)
+            break;
+          case 'Done':
+            this.getDone(this.props.projectname, this.props.user)
+            break;
+            // code block
+        }
+        //refresh
+        this.resetnewtask.current.resettask();
+        this.setState({
+          clicked: 0,
+        })
+      }
+    });
   }
+
+
+  
+
   //call backend to get the lists
-  getTodo() { }
-  getDoing() { }
-  getDone() { }
-  handleTaskInput(mode, e,key) {
+  getTodo(projectname, user) {
+    let data = {
+      projectName: projectname,
+      ownerName: user
+    }
+    wx.request({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/task/tasksTodoByProject",
+      method: 'POST',
+
+      data: JSON.stringify(data),
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
+      success: res => {
+        console.log("getdoto = "+JSON.stringify(res.data))
+        this.setState({
+          todos: JSON.parse(res.data)
+        })
+      }
+    });
+  }
+  getDoing(projectname, user) {
+    let data = {
+      projectName: projectname,
+      ownerName: user
+    }
+    wx.request({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/task/tasksDoingByProject",
+      method: 'POST',
+
+      data: JSON.stringify(data),
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
+      success: res => {
+        this.setState({
+          todos: res.data
+        })
+      }
+    });
+  }
+  getDone(projectname, user) {
+    let data = {
+      projectName: projectname,
+      ownerName: user
+    }
+    wx.request({
+      url:
+        "https://stark-crag-91309.herokuapp.com/api/task/tasksDoneByProject",
+      method: 'POST',
+
+      data: JSON.stringify(data),
+      dataType: 'json',
+      header: {
+        'content-ype': 'application/x-www-form-urlencoded'
+      },
+      success: res => {
+        this.setState({
+          todos: res.data
+        })
+      }
+    });
+  }
+  handleTaskInput(mode, e, key) {
     switch (mode) {
       case 'todo':
         var temptodo = this.state.todos.slice();
@@ -83,17 +193,11 @@ export default class Task extends Component {
     }
   }
   renderlist(list, mode) {
-    var list = list.map((item) => <View style='background:blue; width: 30px; height:30px;'direction = 'all'className='tasklistitem'  key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </View>)
-    console.log(list)
+    var list = list.map((item) => <View className='tasklistitem' key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </View>)
     return list
   }
   render() {
-    // var temptodos = ['没做', '啧啧啧', 'ksdjglksadjf', 'aksdjfaklsd', 'tesssssssdsfhasdjhfaskdjhfjkasdhfjkasdhfjkashfkjasdhfjkasdhfjdshfjshdjkfsdjfhkasjdhfkjasdhfjkasdhfjkds', 'dfd', 'asdfasdf']
-    // var tempdoings = ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd']
-    // var tempdones = ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd']
-    // this.state.todos = temptodos;
-    // this.state.doings = tempdoings;
-    // this.state.dones = tempdones;
+
     return (
 
       < View className="alltask" >
@@ -102,24 +206,24 @@ export default class Task extends Component {
           <View className="plusimage"><Image src={plus} onClick={this.handleClickTodo} style='width: 30px;height: 30px;'
           /></View>
           <View className='tasktext'>待完成</View>
-          {this.state.clicked == 1 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <MovableArea style='background:red; width: 300px; height:100px;'id='todo'className='tasklistcontainer'>{this.renderlist(this.state.todos,'todo')}</MovableArea>
+          {this.state.clicked == 1 ? <AddTask  ref={this.resetnewtask} status='Todo' handleSubmit={this.handleSubmit} /> : null}
+          <View id='todo' className='tasklistcontainer'>{this.renderlist(this.state.todos, 'todo')}</View>
         </View>
 
         <View className="project-info" >
           <View className="plusimage"><Image src={plus} onClick={this.handleClickDoing} style='width: 30px;height: 30px;'
           /></View>
           <View className='tasktext'>进行中</View>
-          {this.state.clicked == 2 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <MovableArea style='background:red; width: 300px; height:100px;' id='doing'className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</MovableArea>
+          {this.state.clicked == 2 ? <AddTask ref={this.resetnewtask} status='Doing' handleSubmit={this.handleSubmit} /> : null}
+          <View id='doing' className='tasklistcontainer'>{this.renderlist(this.state.doings, 'doing')}</View>
         </View>
 
         <View className="project-info" >
           <View className="plusimage"><Image src={plus} onClick={this.handleClickDone} style='width: 30px;height: 30px;'
           /></View>
           <View className='tasktext'>已完成</View>
-          {this.state.clicked == 3 ? <AddTask taskValue={this.state.taskValue} handleContentInput={e => this.handleContentInput(e)} handleSubmit={e => this.handleSubmit(e)} /> : null}
-          <View id='done'className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</View>
+          {this.state.clicked == 3 ? <AddTask ref={this.resetnewtask} status='Done' handleSubmit={this.handleSubmit} /> : null}
+          <View id='done' className='tasklistcontainer'>{this.renderlist(this.state.dones, 'done')}</View>
         </View>
 
 
