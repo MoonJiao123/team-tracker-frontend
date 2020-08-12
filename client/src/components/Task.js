@@ -14,8 +14,8 @@ export default class Task extends Component {
     super();
     this.state = {
       todos: [],
-      doings: ['坐着呢', '啊啊啊', 'ksdjglksadjf', 'aksdjfaklsd'],
-      dones: ['做完啦', '嘿嘿额', 'ksdjglksadjf', 'aksdjfaklsd'],
+      doings: [],
+      dones: [],
       clicked: 0,
     }
     this.handleClickTodo = this.handleClickTodo.bind(this);
@@ -23,8 +23,6 @@ export default class Task extends Component {
     this.handleClickDone = this.handleClickDone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetnewtask = React.createRef();
-  }
-  componentWillMount() {
     this.getTodo(this.props.projectname, this.props.user)
     this.getDoing(this.props.projectname, this.props.user)
     this.getDone(this.props.projectname, this.props.user)
@@ -45,10 +43,8 @@ export default class Task extends Component {
       clicked: 3
     });
   }
-  //button actionclick
-  handlesearch(){
-    
-  }
+  
+  
   //button submit in AddTask component
   handleSubmit(e, taskinfo,status) {
     e.preventDefault()
@@ -73,17 +69,23 @@ export default class Task extends Component {
         'content-ype': 'application/x-www-form-urlencoded'
       },
       success: res => {
-        console.log('res data= ' + JSON.stringify(res)+ "res "+res.data)
+        console.log('res data= ' + JSON.stringify(res.data)+ "res "+res.data)
         //update all the tasks
         switch(status) {
           case 'Todo':
-            this.getTodo(this.props.projectname, this.props.user)
+            this.setState({
+              todos: res.data,
+            })
             break;
           case 'Doing':
-            this.getDoing(this.props.projectname, this.props.user)
+            this.setState({
+              doings: res.data,
+            })
             break;
           case 'Done':
-            this.getDone(this.props.projectname, this.props.user)
+            this.setState({
+              dones: res.data,
+            })
             break;
             // code block
         }
@@ -118,7 +120,7 @@ export default class Task extends Component {
       success: res => {
         console.log("getdoto = "+JSON.stringify(res.data))
         this.setState({
-          todos: JSON.parse(res.data)
+          todos: res.data 
         })
       }
     });
@@ -193,11 +195,12 @@ export default class Task extends Component {
     }
   }
   renderlist(list, mode) {
+    console.log("renderlist "+list+" type "+typeof(list))
     var list = list.map((item) => <View className='tasklistitem' key={item} id={item}><Input value={item} onInput={e => this.handleTaskInput(mode, e, item)} maxLength='100' /> </View>)
     return list
   }
   render() {
-
+    console.log("all list "+this.state)
     return (
 
       < View className="alltask" >

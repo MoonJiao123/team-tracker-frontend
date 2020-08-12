@@ -21,12 +21,6 @@ export default class Index extends Component {
     this.resetelement = React.createRef();
     this.clearelement = React.createRef();
 
-
-  }
-
-
-  //get user;s openid and save to be
-  componentWillMount() {
     //let getter = this;
     wx.cloud.callFunction({
       name: 'getOpenid',
@@ -51,27 +45,32 @@ export default class Index extends Component {
     })
   }
 
+
+
   //onActionClick for search bar
   handleClick(e, value, user) {
     
     let searchdata = {
-      projectName: value,
-      ownerName: user
+      ownerName: user,
+      searchedString: value
     }
+    console.log("search data "+JSON.stringify(searchdata))
     wx.request({
       url:
-        "https://stark-crag-91309.herokuapp.com/api/project/byProjectNameAndOwnerName",
+        'https://stark-crag-91309.herokuapp.com/api/project/search',
       data: JSON.stringify(searchdata),
-      method: "POST",
-      dataType: 'json',
+      method: 'GET',
       header: {
-        'content-ype': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
+      dataType: 'json',
       success: res => {
+        console.log("search = "+JSON.stringify(res.data))
         this.setState({
-          currentproject: '[' + JSON.stringify(res.data) + ']',
+          currentproject:  JSON.stringify(res.data) ,
         })
       }
+    
     });
   }
   //clear the search bar will call get all projects of the user again
@@ -112,12 +111,12 @@ export default class Index extends Component {
   }
   //submit function of addprojectbutton
   handleSubmit(e, title, content) {
-    e.preventDefault()
-    //云开发初始化
-    wx.cloud.init({
-      env: 'cloud-env-ciizt',
-      traceUser: true
-    })
+    // e.preventDefault()
+    // //云开发初始化
+    // wx.cloud.init({
+    //   env: 'cloud-env-ciizt',
+    //   traceUser: true
+    // })
 
     let tar = {
       projectName: title,

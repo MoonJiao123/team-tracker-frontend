@@ -15,8 +15,6 @@ export default class Login extends Component {
   }
   componentDidMount() {}
 
-  componentWillUnmount() {}
-
   componentDidShow() {}
 
   componentDidHide() {}
