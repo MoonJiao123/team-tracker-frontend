@@ -20,7 +20,6 @@ import project from "../pages/project/project.jsx";
 export default class Task extends Component {
   constructor(props) {
     super(props);
-    console.log(`in task, project name is ${this.props.user}`);
     this.state = {
       todos: [],
       doings: [],
@@ -33,11 +32,13 @@ export default class Task extends Component {
     this.handleClickDone = this.handleClickDone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetnewtask = React.createRef();
+
+
+  }
+  componentDidMount() {
     this.getTodo(this.props.projectname, this.props.user);
     this.getDoing(this.props.projectname, this.props.user);
     this.getDone(this.props.projectname, this.props.user);
-
-    console.log(`in task, project name is ${this.props.projectname}`);
   }
 
   handleClickTodo(e) {
@@ -66,8 +67,7 @@ export default class Task extends Component {
       projectName: this.props.projectname,
       ownerName: this.props.user
     };
-    console.log("taskinfo " + taskinfo);
-    console.log("mydata = " + JSON.stringify(mydata));
+
     //call backend ot add a task
     wx.request({
       url: "https://stark-crag-91309.herokuapp.com/api/task",
@@ -79,9 +79,7 @@ export default class Task extends Component {
         "content-ype": "application/x-www-form-urlencoded"
       },
       success: res => {
-        console.log(
-          "res data= " + JSON.stringify(res.data) + "res " + res.data
-        );
+
         //update all the tasks
         switch (status) {
           case "Todo":
@@ -126,7 +124,6 @@ export default class Task extends Component {
         "content-ype": "application/x-www-form-urlencoded"
       },
       success: res => {
-        console.log("getdoto = " + JSON.stringify(res.data));
         this.setState({
           todos: res.data
         });
@@ -201,13 +198,56 @@ export default class Task extends Component {
         break;
     }
   }
+  handleTaskBlur(mode, e, item) {
+    switch (mode) {
+      case "todo":
+        let mydata = {
+          taskName: e.target.value,
+          description: e.target.value,
+          status: "Todo",
+          projectName: this.props.projectname,
+          ownerName: this.props.user,
+          originalTaskName: item
+        }
+        wx.request({
+          url: "https://stark-crag-91309.herokuapp.com/api/task/updateTask",
+          method: "POST",
+
+          data: JSON.stringify(mydata),
+          dataType: "json",
+          header: {
+            "content-ype": "application/x-www-form-urlencoded"
+          },
+          success: res => {
+            this.setState({
+              todos: res.data
+            });
+          }
+        });
+        break;
+      case "doing":
+        var tempdoing = this.state.doings.slice();
+        tempdoing[tempdoing.indexOf(key)] = e.target.value;
+        this.setState({
+          doings: tempdoing
+        });
+        break;
+      case "done":
+        var tempdone = this.state.dones.slice();
+        tempdone[tempdone.indexOf(key)] = e.target.value;
+        this.setState({
+          dones: tempdone
+        });
+        break;
+    }
+  }
   renderlist(list, mode) {
-    console.log("renderlist " + list + " type " + typeof list);
     var list = list.map(item => (
       <View className="tasklistitem" key={item} id={item}>
         <Input
           value={item}
           onInput={e => this.handleTaskInput(mode, e, item)}
+          onBlur={e => this.handleTaskBlur(mode, e, item)}
           maxLength="100"
         />{" "}
       </View>
@@ -215,7 +255,6 @@ export default class Task extends Component {
     return list;
   }
   render() {
-    console.log("all list " + this.state);
     return (
       <View className="alltask">
         <View className="project-info">
