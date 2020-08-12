@@ -5,24 +5,20 @@ import "./custom-variables.scss";
 import "./app.scss";
 
 class App extends Component {
-
   componentWillMount() {
-
     //云开发初始化
     wx.cloud.init({
-      env: 'cloud-env-ciizt',
+      env: "cloud-env-ciizt",
       traceUser: true
-    })
-    
-    
+    });
   }
-  componentDidMount() { }
+  componentDidMount() {}
 
-  componentDidShow() { }
+  componentDidShow() {}
 
-  componentDidHide() { }
+  componentDidHide() {}
 
-  componentDidCatchError() { }
+  componentDidCatchError() {}
 
   // this.props.children 是将要会渲染的页面
   render() {
