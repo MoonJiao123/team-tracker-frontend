@@ -18,6 +18,7 @@ export default class Index extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.getCurrent = this.getCurrent.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
     this.resetelement = React.createRef();
     this.clearelement = React.createRef();
 
@@ -45,16 +46,39 @@ export default class Index extends Component {
     })
   }
 
+  handleBlur(e,content,name,user) {
+    let mydata = {
+      projectDescription: content,
+      projectName: name,
+      ownerName: user
+    }
+    console.log("blur data "+JSON.stringify(mydata))
+    wx.request({
+      url: "https://stark-crag-91309.herokuapp.com/api/project",
+      method: "POST",
 
+      data: JSON.stringify(mydata),
+      dataType: "json",
+      header: {
+        "content-ype": "application/x-www-form-urlencoded"
+      },
+      success: res => {
+        console.log("res "+JSON.stringify(res.data))
+        // this.setState({
+        //   currentproject: res.data,
+        // })
+      }
+    });
+  }
 
   //onActionClick for search bar
   handleClick(e, value, user) {
-    
+
     let searchdata = {
       ownerName: user,
       searchedString: value
     }
-    console.log("search data "+JSON.stringify(searchdata))
+    console.log("search data " + JSON.stringify(searchdata))
     wx.request({
       url:
         'https://stark-crag-91309.herokuapp.com/api/project/search',
@@ -65,12 +89,12 @@ export default class Index extends Component {
       },
       dataType: 'json',
       success: res => {
-        console.log("search = "+JSON.stringify(res.data))
+        console.log("search = " + JSON.stringify(res.data))
         this.setState({
-          currentproject:  JSON.stringify(res.data) ,
+          currentproject: JSON.stringify(res.data),
         })
       }
-    
+
     });
   }
   //clear the search bar will call get all projects of the user again
@@ -169,7 +193,7 @@ export default class Index extends Component {
     }
     let listprojects = [];
     if (currentProject != undefined && currentProject.length != 0) {
-      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid={this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} /></View>);
+      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid={this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} handleBlur={this.handleBlur}/></View>);
     }
     return (
       <View className="index">
