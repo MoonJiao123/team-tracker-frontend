@@ -30,7 +30,7 @@ export default class ProjectInfo extends Component {
         </View>
         <View className="project-content">
           <Input
-            value={this.props.projectcontent}
+            value={this.state.contentinput}
             onInput = {e => this.handleInput(e)}
             onBlur={e => this.props.handleBlur(e, this.state.contentinput, this.props.projecttitle, this.props.openid)}
             maxLength="100"
