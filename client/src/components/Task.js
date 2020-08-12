@@ -124,7 +124,6 @@ export default class Task extends Component {
         "content-ype": "application/x-www-form-urlencoded"
       },
       success: res => {
-        console.log("set state todo inital "+res.data)
         this.setState({
           todos: res.data
         });
@@ -174,31 +173,7 @@ export default class Task extends Component {
       }
     });
   }
-  // handleTaskInput(mode, e, key) {
-  //   switch (mode) {
-  //     case "todo":
-  //       var temptodo = this.state.todos.slice();
-  //       temptodo[temptodo.indexOf(key)] = e.target.value;
-  //       this.setState({
-  //         todos: temptodo
-  //       });
-  //       break;
-  //     case "doing":
-  //       var tempdoing = this.state.doings.slice();
-  //       tempdoing[tempdoing.indexOf(key)] = e.target.value;
-  //       this.setState({
-  //         doings: tempdoing
-  //       });
-  //       break;
-  //     case "done":
-  //       var tempdone = this.state.dones.slice();
-  //       tempdone[tempdone.indexOf(key)] = e.target.value;
-  //       this.setState({
-  //         dones: tempdone
-  //       });
-  //       break;
-  //   }
-  // }
+  
   handleTaskBlur(mode, e, item) {
     switch (mode) {
       case "todo":
@@ -210,7 +185,6 @@ export default class Task extends Component {
           ownerName: this.props.user,
           originalTaskName: item
         }
-        console.log("blur data "+JSON.stringify(mydata))
         wx.request({
           url: "https://stark-crag-91309.herokuapp.com/api/task/updateTask",
           method: "POST",
@@ -221,7 +195,6 @@ export default class Task extends Component {
             "content-ype": "application/x-www-form-urlencoded"
           },
           success: res => {
-            console.log("blur res "+res.data)
             this.setState({
               todos: res.data
             });
@@ -237,7 +210,6 @@ export default class Task extends Component {
           ownerName: this.props.user,
           originalTaskName: item
         }
-        console.log("blur data "+JSON.stringify(mydata))
         wx.request({
           url: "https://stark-crag-91309.herokuapp.com/api/task/updateTask",
           method: "POST",
@@ -248,7 +220,6 @@ export default class Task extends Component {
             "content-ype": "application/x-www-form-urlencoded"
           },
           success: res => {
-            console.log("blur res "+res.data)
             this.setState({
               doings: res.data
             });
@@ -264,7 +235,6 @@ export default class Task extends Component {
           ownerName: this.props.user,
           originalTaskName: item
         }
-        console.log("blur data "+JSON.stringify(mydata))
         wx.request({
           url: "https://stark-crag-91309.herokuapp.com/api/task/updateTask",
           method: "POST",
@@ -275,7 +245,7 @@ export default class Task extends Component {
             "content-ype": "application/x-www-form-urlencoded"
           },
           success: res => {
-            console.log("blur res "+res.data)
+
             this.setState({
               dones: res.data
             });

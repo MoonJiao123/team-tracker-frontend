@@ -13,7 +13,6 @@ export default class AddTask extends Component {
   }
   //track input new task
   handleTaskInput(e) {
-    console.log("hendleContentInput " + e.target.value)
     this.setState({
       newtask: e.target.value,
     })

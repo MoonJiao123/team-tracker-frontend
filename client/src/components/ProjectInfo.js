@@ -21,7 +21,6 @@ export default class ProjectInfo extends Component {
     })
   }
   render() {
-    console.log("render " + this.state.contentinput)
     return (
       <View className="project-info">
         <View className='project-minus-inline'>

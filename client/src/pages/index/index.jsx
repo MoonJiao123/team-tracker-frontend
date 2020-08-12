@@ -79,11 +79,11 @@ export default class Index extends Component {
       searchedString: value
     }
     console.log("search data " + JSON.stringify(searchdata))
-    wx.request({
+    wx.vrequest({
       url:
         'https://stark-crag-91309.herokuapp.com/api/project/search',
       data: JSON.stringify(searchdata),
-      method: 'GET',
+      method: 'POST',
       header: {
         'Content-Type': 'application/json'
       },
@@ -103,6 +103,7 @@ export default class Index extends Component {
       url:
         "https://stark-crag-91309.herokuapp.com/api/project/own/" + this.state.user,
       dataType: JSON,
+      
       success: res => {
         this.setState({
           currentproject: res.data,
