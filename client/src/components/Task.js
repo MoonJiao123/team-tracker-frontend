@@ -287,19 +287,14 @@ export default class Task extends Component {
   renderlist(list, mode) {
     var list = list.map(item => (
 
-      <AtSwipeAction  className="swipe" key={item} onClick={this.handleClick} options={[
+      <AtSwipeAction  className="swipe" key={item} onClick={this.handleFinishTask} options={[
         {
-          text: '取消',
+          text: '完成',
           style: {
-            backgroundColor: '#6190E8'
+            backgroundColor: '#CAE7B9'
           }
         },
-        {
-          text: '确认',
-          style: {
-            backgroundColor: '#FF4949'
-          }
-        }
+        
       ]}>
         {/* <View className="tasklistitem" > */}
         <View className="swipe">
@@ -321,23 +316,6 @@ export default class Task extends Component {
   render() {
     return (
       <View className="alltask">
-
-        <AtSwipeAction onClick={this.handleClick} options={[
-          {
-            text: '取消',
-            style: {
-              backgroundColor: '#6190E8'
-            }
-          },
-          {
-            text: '确认',
-            style: {
-              backgroundColor: '#FF4949'
-            }
-          }
-        ]}>
-          <View className='normal'>点击事件触发</View>
-        </AtSwipeAction>
 
         <View className="project-info">
 

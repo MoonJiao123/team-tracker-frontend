@@ -221,7 +221,7 @@ export default class Index extends Component {
 
         <View className='currentproject'>
           {listprojects}
-          {/* {listprojects != null?  listprojects  : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
+          {/* {!Object.keys(listprojects)?  listprojects  : <View className='project-title'>无项目，点击加号添加项目</View>} */}
         </View>
 
 

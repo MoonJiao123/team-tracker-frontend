@@ -54,6 +54,7 @@ members accordian
 .input{
   width: 100%;
   height: 100%;
+  padding:10px;
 }
 .tasklistitem:focus-within{
   height:500px;
@@ -80,4 +81,7 @@ delete img
   cursor: pointer;
   border-radius: 12px;
   height:100px;
+}
+.swipe:focus-within{
+  height:500px;
 }
