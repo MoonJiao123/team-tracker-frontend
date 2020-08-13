@@ -14,10 +14,8 @@ import {
 import React, { Component } from "react";
 import AddTask from "./AddTask";
 import plus from "../components/images/plus.png";
-import Board from "./Board";
-import Taskitem from "./Taskitem";
-import project from "../pages/project/project.jsx";
-import { $ } from '@tarojs/extend'
+import deleteimg from '../components/images/delete.png'
+
 export default class Task extends Component {
   constructor(props) {
     super(props);
@@ -290,7 +288,7 @@ export default class Task extends Component {
       <View className="tasklistitem" key={item} id={item}>
         <Textarea className='input'
           value={item}
-          
+
           onBlur={e => this.handleTaskBlur(mode, e, item)}
           maxlength="1000"
         />
@@ -320,6 +318,11 @@ export default class Task extends Component {
           <View id="todo" className="tasklistcontainer">
             {this.renderlist(this.state.todos, "todo")}
           </View>
+          <View className='deleteimg'><Image
+            src={deleteimg}
+            onClick={this.handledelete}
+            style="width: 30px;height: 30px;"
+          /></View>
         </View>
 
         <View className="project-info">
@@ -341,6 +344,11 @@ export default class Task extends Component {
           <View id="doing" className="tasklistcontainer">
             {this.renderlist(this.state.doings, "doing")}
           </View>
+          <View className='deleteimg'><Image
+            src={deleteimg}
+            onClick={this.handledelete}
+            style="width: 30px;height: 30px;"
+          /></View>
         </View>
 
         <View className="project-info">
@@ -362,6 +370,11 @@ export default class Task extends Component {
           <View id="done" className="tasklistcontainer">
             {this.renderlist(this.state.dones, "done")}
           </View>
+          <View className='deleteimg'><Image
+            src={deleteimg}
+            onClick={this.handledelete}
+            style="width: 30px;height: 30px;"
+          /></View>
         </View>
       </View>
     );
