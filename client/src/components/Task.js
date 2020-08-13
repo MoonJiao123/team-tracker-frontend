@@ -17,6 +17,7 @@ import plus from "../components/images/plus.png";
 import Board from "./Board";
 import Taskitem from "./Taskitem";
 import project from "../pages/project/project.jsx";
+import { $ } from '@tarojs/extend'
 export default class Task extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,8 @@ export default class Task extends Component {
       todos: [],
       doings: [],
       dones: [],
-      clicked: 0
+      clicked: 0,
+      searchedTasks: []
     };
 
     this.handleClickTodo = this.handleClickTodo.bind(this);
@@ -33,12 +35,40 @@ export default class Task extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.resetnewtask = React.createRef();
 
-
   }
   componentDidMount() {
     this.getTodo(this.props.projectname, this.props.user);
     this.getDoing(this.props.projectname, this.props.user);
     this.getDone(this.props.projectname, this.props.user);
+
+  }
+  componentWillReceiveProps(nextProps) {
+    let newTodos = []
+    let newDoings = []
+    let newDones = []
+    if (nextProps.searchedTasks !== this.props.searchedTasks) {
+      nextProps.searchedTasks.forEach(element => {
+        switch (element.status) {
+          case `Todo`:
+            newTodos.push(element.taskName)
+            break
+          case `Doing`:
+            newDoings.push(element.taskName)
+            break
+          case `Done`:
+            newDones.push(element.taskName)
+            break
+          default:
+            break;
+        }
+
+      });
+      this.setState({
+        todos: newTodos,
+        doings: newDoings,
+        dones: newDones
+      })
+    }
   }
 
   handleClickTodo(e) {
@@ -173,7 +203,7 @@ export default class Task extends Component {
       }
     });
   }
-  
+
   handleTaskBlur(mode, e, item) {
     switch (mode) {
       case "todo":
@@ -254,15 +284,16 @@ export default class Task extends Component {
         break;
     }
   }
+
   renderlist(list, mode) {
     var list = list.map(item => (
       <View className="tasklistitem" key={item} id={item}>
-        <Input
+        <Textarea className='input'
           value={item}
-          // onInput={e => this.handleTaskInput(mode, e, item)}
+          
           onBlur={e => this.handleTaskBlur(mode, e, item)}
-          maxLength="100"
-        />{" "}
+          maxlength="1000"
+        />
       </View>
     ));
     return list;

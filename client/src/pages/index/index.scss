@@ -13,6 +13,7 @@ cfcfcf
   background-image: url("../../components/images/background.png");
   background-repeat: repeat;
 
+  height: 2000px;
 
 }
 
@@ -39,9 +40,10 @@ cfcfcf
 */
 .project-info {
   background: #F3DE8A;
-  margin: 30px;
+  margin: 40px;
   padding: 20px;
   border-radius: 12px;
+  width: 85vw;
 }
 .project-minus-inline{
   display: flex;

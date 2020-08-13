@@ -14,15 +14,28 @@ export default class Project extends Component {
     super();
     this.state = {
       user: getCurrentInstance().router.params.user,
-      projectname: getCurrentInstance().router.params.name
+      projectname: getCurrentInstance().router.params.name,
+      searchedTasks:[]
     };
     this.handlesearch= this.handlesearch.bind(this)
+    this.getCurrentTasks = this.getCurrentTasks.bind(this)
+    this.resettaskelement = React.createRef();
+    this.clearelement = React.createRef();
+
   }
 
   //get call to get all current projects
   config = {
     navigationBarTitleText: "我的项目"
   };
+
+  //clear results
+  getCurrentTasks(e){
+    this.resettaskelement.current.getTodo(this.state.projectname, this.state.user);
+    this.resettaskelement.current.getDoing(this.state.projectname, this.state.user);
+    this.resettaskelement.current.getDone(this.state.projectname, this.state.user);
+    this.clearelement.current.reset();
+  }
 
   // search task
   handlesearch(e, content, name, user) {
@@ -43,20 +56,20 @@ export default class Project extends Component {
       },
       success: res => {
         console.log("search res "+JSON.stringify(res.data))
-        return res.data
-        // this.setState({
-        //   currentproject: '[' + JSON.stringify(res.data) + ']',
-        // })
+        this.setState({
+          searchedTasks:res.data
+        })
       }
     });
   }
+ 
   render() {
     return (
       <View className="index">
         <NavBar />
-        <SearchTask handlesearch={this.handlesearch} user={this.state.user} projectname = {this.state.projectname}/>
+        <SearchTask ref={this.clearelement} getCurrentTasks={this.getCurrentTasks} handlesearch={this.handlesearch} user={this.state.user} projectname = {this.state.projectname}/>
         <CurrentMembers />
-        <Task user={this.state.user} projectname={this.state.projectname} />
+        <Task ref = {this.resettaskelement} user={this.state.user} projectname={this.state.projectname} searchedTasks={this.state.searchedTasks}/>
       </View>
     );
   }
