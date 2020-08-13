@@ -45,8 +45,6 @@ members accordian
 }
 .tasklistitem{
   background: #fff9dd;
-  margin: 10px;
-  padding: 10px;
   font-size: medium;
   color: #666;
   cursor: pointer;
@@ -74,4 +72,12 @@ delete img
 }
 .addtask{
   margin-top:20px;
+}
+.swipe{
+  background: #fff9dd;
+  font-size: medium;
+  color: #666;
+  cursor: pointer;
+  border-radius: 12px;
+  height:100px;
 }

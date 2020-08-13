@@ -286,14 +286,32 @@ export default class Task extends Component {
 
   renderlist(list, mode) {
     var list = list.map(item => (
-      <View className="tasklistitem" key={item} id={item}>
-        <Textarea className='input'
-          value={item}
 
-          onBlur={e => this.handleTaskBlur(mode, e, item)}
-          maxlength="1000"
-        />
-      </View>
+      <AtSwipeAction  className="swipe" key={item} onClick={this.handleClick} options={[
+        {
+          text: '取消',
+          style: {
+            backgroundColor: '#6190E8'
+          }
+        },
+        {
+          text: '确认',
+          style: {
+            backgroundColor: '#FF4949'
+          }
+        }
+      ]}>
+        {/* <View className="tasklistitem" > */}
+        <View className="swipe">
+          <Textarea className='input'
+            value={item}
+
+            onBlur={e => this.handleTaskBlur(mode, e, item)}
+            maxlength="1000"
+          />
+        </View>
+      </AtSwipeAction>
+
     ));
     return list;
   }
@@ -304,7 +322,7 @@ export default class Task extends Component {
     return (
       <View className="alltask">
 
-        <AtSwipeAction autoClose options={[
+        <AtSwipeAction onClick={this.handleClick} options={[
           {
             text: '取消',
             style: {
@@ -318,10 +336,11 @@ export default class Task extends Component {
             }
           }
         ]}>
-          <View className='normal'>点击按钮自动关闭</View>
+          <View className='normal'>点击事件触发</View>
         </AtSwipeAction>
 
         <View className="project-info">
+
           <View className="plusimage">
             <Image className="addtask"
               src={plus}
@@ -329,6 +348,7 @@ export default class Task extends Component {
               style="width: 25px;height: 25px;"
             />
           </View>
+
           <View className="tasktext">待完成</View>
           {this.state.clicked == 1 ? (
             <AddTask
@@ -337,15 +357,20 @@ export default class Task extends Component {
               handleSubmit={this.handleSubmit}
             />
           ) : null}
+
           <View id="todo" className="tasklistcontainer">
             {this.renderlist(this.state.todos, "todo")}
           </View>
+
           <View className='deleteimg'><Image
             src={deleteimg}
             onClick={this.handledelete}
             style="width: 20px;height: 20px;"
           /></View>
+
         </View>
+
+
 
         <View className="project-info">
           <View className="plusimage">

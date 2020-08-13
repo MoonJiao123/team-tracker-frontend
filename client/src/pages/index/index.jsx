@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 import { AddProjectButton, ProjectInfo } from '../../components'
 import Searchbar from '../../components/Searchbar'
 import Login from '../../components/login'
 import NavBar from '../../components/Navbar'
 import Taro, { connectSocket, removeSavedFile } from "@tarojs/taro";
-
+import manager from '../../components/images/manager.png';
+import team from '../../components/images/team.png'
 export default class Index extends Component {
   constructor() {
     super();
@@ -46,13 +47,13 @@ export default class Index extends Component {
     })
   }
 
-  handleBlur(e,content,name,user) {
+  handleBlur(e, content, name, user) {
     let mydata = {
       projectDescription: content,
       projectName: name,
       ownerName: user
     }
-    console.log("blur data "+JSON.stringify(mydata))
+    console.log("blur data " + JSON.stringify(mydata))
     wx.request({
       url: "https://stark-crag-91309.herokuapp.com/api/project",
       method: "POST",
@@ -63,7 +64,7 @@ export default class Index extends Component {
         "content-ype": "application/x-www-form-urlencoded"
       },
       success: res => {
-        console.log("res "+JSON.stringify(res.data))
+        console.log("res " + JSON.stringify(res.data))
         // this.setState({
         //   currentproject: res.data,
         // })
@@ -103,7 +104,7 @@ export default class Index extends Component {
       url:
         "https://stark-crag-91309.herokuapp.com/api/project/own/" + this.state.user,
       dataType: JSON,
-      
+
       success: res => {
         this.setState({
           currentproject: res.data,
@@ -194,7 +195,7 @@ export default class Index extends Component {
     }
     let listprojects = [];
     if (currentProject != undefined && currentProject.length != 0) {
-      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid={this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} handleBlur={this.handleBlur}/></View>);
+      listprojects = currentProject.map((d) => <View className="projectlist" key={d.projectName}><ProjectInfo openid={this.state.user} handleDelete={this.handleDelete} projecttitle={d.projectName} projectcontent={d.projectDescription} handleBlur={this.handleBlur} /></View>);
     }
     return (
       <View className="index">
@@ -204,10 +205,47 @@ export default class Index extends Component {
         <Searchbar handleClick={this.handleClick} ref={this.clearelement} openid={this.state.user} getCurrent={this.getCurrent} />
         <Login />
         <AddProjectButton openid={this.state.user} ref={this.resetelement} handleSubmit={this.handleSubmit} />
+
+
+        <View className='my-project'>
+
+          <View >
+            <Image className='manager-pic'
+              src={manager}
+              style="width: 40px;height: 40px;"
+            />
+          </View>
+
+          <View className="project-sep">我的项目</View>
+        </View>
+
         <View className='currentproject'>
           {listprojects}
           {/* {listprojects != null?  listprojects  : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
         </View>
+
+
+
+
+        <View className='my-project'>
+
+          <View >
+            <Image className='manager-pic'
+              src={team}
+              style="width: 40px;height: 40px;"
+            />
+          </View>
+
+          <View className="project-sep">参与项目</View>
+          
+        </View>
+
+        <View className='currentproject'>
+          {/* {listprojects != null?  listprojects  : <View className='project-title'>No project listed, please add some projects ;-;</View>} */}
+        </View>
+
+
+
       </View>
 
     )
