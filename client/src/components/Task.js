@@ -15,7 +15,8 @@ import React, { Component } from "react";
 import AddTask from "./AddTask";
 import plus from "../components/images/plus.png";
 import deleteimg from '../components/images/delete.png'
-
+import { AtSwipeAction } from "taro-ui"
+import "taro-ui/dist/style/components/swipe-action.scss";
 export default class Task extends Component {
   constructor(props) {
     super(props);
@@ -296,15 +297,36 @@ export default class Task extends Component {
     ));
     return list;
   }
+  handledelete() {
+
+  }
   render() {
     return (
       <View className="alltask">
+
+        <AtSwipeAction autoClose options={[
+          {
+            text: '取消',
+            style: {
+              backgroundColor: '#6190E8'
+            }
+          },
+          {
+            text: '确认',
+            style: {
+              backgroundColor: '#FF4949'
+            }
+          }
+        ]}>
+          <View className='normal'>点击按钮自动关闭</View>
+        </AtSwipeAction>
+
         <View className="project-info">
           <View className="plusimage">
-            <Image
+            <Image className="addtask"
               src={plus}
               onClick={this.handleClickTodo}
-              style="width: 30px;height: 30px;"
+              style="width: 25px;height: 25px;"
             />
           </View>
           <View className="tasktext">待完成</View>
@@ -321,16 +343,16 @@ export default class Task extends Component {
           <View className='deleteimg'><Image
             src={deleteimg}
             onClick={this.handledelete}
-            style="width: 30px;height: 30px;"
+            style="width: 20px;height: 20px;"
           /></View>
         </View>
 
         <View className="project-info">
           <View className="plusimage">
-            <Image
+            <Image className="addtask"
               src={plus}
               onClick={this.handleClickDoing}
-              style="width: 30px;height: 30px;"
+              style="width: 25px;height: 25px;"
             />
           </View>
           <View className="tasktext">进行中</View>
@@ -347,16 +369,16 @@ export default class Task extends Component {
           <View className='deleteimg'><Image
             src={deleteimg}
             onClick={this.handledelete}
-            style="width: 30px;height: 30px;"
+            style="width: 20px;height: 20px;"
           /></View>
         </View>
 
         <View className="project-info">
           <View className="plusimage">
-            <Image
+            <Image className="addtask"
               src={plus}
               onClick={this.handleClickDone}
-              style="width: 30px;height: 30px;"
+              style="width: 25px;height: 25px;"
             />
           </View>
           <View className="tasktext">已完成</View>
@@ -373,7 +395,7 @@ export default class Task extends Component {
           <View className='deleteimg'><Image
             src={deleteimg}
             onClick={this.handledelete}
-            style="width: 30px;height: 30px;"
+            style="width: 20px;height: 20px;"
           /></View>
         </View>
       </View>
