@@ -55,7 +55,6 @@ export default class Project extends Component {
         'content-ype': 'application/x-www-form-urlencoded'
       },
       success: res => {
-        console.log("search res "+JSON.stringify(res.data))
         this.setState({
           searchedTasks:res.data
         })

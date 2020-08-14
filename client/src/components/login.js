@@ -21,9 +21,7 @@ export default class Login extends Component {
   // 获取用户授权结果
   getOauthStatus = () => {
     Taro.getSetting().then(res => {
-      console.log(res)
       if(Object.keys(res.authSetting).length === 0 || !res.authSetting['scope.userInfo']){ // 用户信息无授权
-        console.log(res.authSetting)
         console.log('用户无授权信息')
       }else{ // 用户允许授权获取用户信息
         // 隐藏授权按钮
@@ -51,7 +49,6 @@ export default class Login extends Component {
   onGotUserInfo = res => {
     if(res.detail.userInfo){ // 返回的信息中包含用户信息则证明用户允许获取信息授权
       console.log('授权成功')
-      console.log(res.detail.userInfo)
     }else{ // 用户取消授权，进行提示，促进重新授权
       Taro.showModal({
         title: '嗨请授权一下啦',

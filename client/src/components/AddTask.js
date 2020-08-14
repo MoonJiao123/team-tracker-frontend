@@ -1,4 +1,4 @@
-import { View, Button, Form, Input } from '@tarojs/components'
+import { View, Button, Form, Input,Textarea } from '@tarojs/components'
 import React, { Component } from 'react'
 import { AtButton } from 'taro-ui'
 export default class AddTask extends Component {
@@ -26,16 +26,15 @@ export default class AddTask extends Component {
   render() {
     return (
       <View className='task-form'>
-        <View className='form-title'>添加新的任务</View>
         <Form >
           <View>
-            <Input
-              className="input-title"
+            <Textarea
+              className="task-input"
               type="text"
               placeholder="新任务"
               onBlur={this.handleTaskInput}
             />
-            <AtButton className="info-button" hover-class='button-hover-effect' onClick={e => this.props.handleSubmit(e, this.state.newtask, this.props.status)} >
+            <AtButton className="task-button" hover-class='button-hover-effect' onClick={e => this.props.handleSubmit(e, this.state.newtask, this.props.status)} >
               提交
               </AtButton>
           </View>

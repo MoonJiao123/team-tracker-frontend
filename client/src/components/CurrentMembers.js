@@ -18,7 +18,6 @@ export default class CurrentMembers extends Component {
         this.setState({
             open: value
         })
-        console.log(this.state.open)
     }
 
     getallMembers() {

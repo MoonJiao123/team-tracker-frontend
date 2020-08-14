@@ -15,7 +15,6 @@ class DeleteProjectButton extends Component {
         this.setState({
             clicked: 1
         });
-        console.log("deleted the project")
     }
     render(){
         return (

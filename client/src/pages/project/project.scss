@@ -19,12 +19,26 @@ members accordian
   background-color: #97A7B3 ;
   width:30%;
   margin:30px;
-  border-radius: 12px;
+  border-radius: 30px;
   color:#7E7F9A
 }
 /*
 * **************task***********
 */
+.task-input{
+  background-color: #fff9dd;
+  border-radius: 12px;
+  padding: 10px;
+  color: #666;
+  font-size: medium;
+}
+.task-button{
+  background-color: #EB9486 ;
+  color: white;
+  border-radius: 100px;
+  width: 80%;
+  margin-top: 40px;
+}
 .task-form{
   margin: 20px;
   padding: 30px;
@@ -64,7 +78,7 @@ members accordian
 // }
 
 /*
-delete img
+swipe
 */
 .deleteimg{
   margin-right:10px;
@@ -81,7 +95,10 @@ delete img
   cursor: pointer;
   border-radius: 12px;
   height:100px;
+  width: 100%;
 }
 .swipe:focus-within{
   height:500px;
 }
+
+
