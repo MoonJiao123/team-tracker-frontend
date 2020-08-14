@@ -187,6 +187,7 @@ export default class Index extends Component {
   render() {
 
     let currentProject = this.state.currentproject;
+    console.log("current" + currentProject)
     if (currentProject != undefined && currentProject.length != 0) {
       currentProject = JSON.parse(currentProject)
     }
@@ -201,6 +202,11 @@ export default class Index extends Component {
         </View>
         <Searchbar handleClick={this.handleClick} ref={this.clearelement} openid={this.state.user} getCurrent={this.getCurrent} />
         <Login />
+
+        {currentProject.length == 0 ?<View  className='project-reminder'>
+          <View className="reminder-view">无项目，点击加号添加项目</View>
+        </View> :null}
+        
         <AddProjectButton openid={this.state.user} ref={this.resetelement} handleSubmit={this.handleSubmit} />
 
 
@@ -218,7 +224,6 @@ export default class Index extends Component {
 
         <View className='currentproject'>
           {listprojects}
-          {/* {!Object.keys(listprojects)?  listprojects  : <View className='project-title'>无项目，点击加号添加项目</View>} */}
         </View>
 
 
@@ -234,7 +239,7 @@ export default class Index extends Component {
           </View>
 
           <View className="project-sep">参与项目</View>
-          
+
         </View>
 
         <View className='currentproject'>

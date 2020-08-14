@@ -97,7 +97,6 @@ export default class Task extends Component {
       projectName: this.props.projectname,
       ownerName: this.props.user
     };
-    console.log("taskingo"+taskinfo)
     //call backend ot add a task
     wx.request({
       url: "https://stark-crag-91309.herokuapp.com/api/task",
@@ -353,7 +352,6 @@ export default class Task extends Component {
       projectName: this.props.projectname,
       ownerName: this.props.user,
     }
-    console.log("movedata "+JSON.stringify(movedata))
     wx.request({
       url: "https://stark-crag-91309.herokuapp.com/api/task/moveTaskStatus",
       method: "POST",
@@ -364,7 +362,6 @@ export default class Task extends Component {
         "content-ype": "application/x-www-form-urlencoded"
       },
       success: res => {
-        console.log("result "+JSON.stringify(res.data))
         switch (mode) {
           case 'todo':
             this.setState({

@@ -6,7 +6,21 @@ export default {
     navigationBarTitleText: "WeChat",
     navigationBarTextStyle: "white",
     navigationStyle: "custom",
-    // enablePullDownRefresh: true
+    enablePullDownRefresh: true,
   },
-  cloud: true
+  cloud: true,
+  // tabBar: {
+  //   backgroundColor: '#CAE7B9',
+  //   list: [
+  //     {
+  //       pagePath: 'pages/index/index',
+  //       text: '首页',
+  //     },
+  //     {
+  //       pagePath: 'pages/index/index',
+  //       text: '设置',
+  //     },
+
+  //   ]
+  // }
 };

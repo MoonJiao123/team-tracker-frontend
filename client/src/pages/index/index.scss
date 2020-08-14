@@ -12,8 +12,8 @@ cfcfcf
 .index {
   background-image: url("../../components/images/background.png");
   background-repeat: repeat;
-  height: 2000px;
-
+  height:100%;
+  width:100%
 }
 
 .searchbar{
@@ -185,3 +185,23 @@ cfcfcf
     margin-top:40px;
     margin-left:10px;
   }
+
+/**
+  project reminder
+*/
+.project-reminder{
+  
+  background-image: url("../../components/images/speech.png") ;
+  background-repeat: no-repeat;
+  margin-left: 3em;
+  text-align: center;
+  height: 480px;
+
+}
+.reminder-view{
+  color: #666;
+  font-weight: bolder;
+  padding-top: 7em;
+  padding-right:3em;
+  display: inline-block;
+}
