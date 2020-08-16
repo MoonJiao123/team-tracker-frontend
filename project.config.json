@@ -3,7 +3,7 @@
 	"cloudfunctionRoot": "cloud/",
 	"projectname": "team-tracker-frontend",
 	"description": "项目管理工具",
-	"appid": "wx29e91b0dd51dd51d",
+	"appid": "wx2f09e7365b3a4581",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
